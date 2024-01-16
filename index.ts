@@ -4,7 +4,7 @@ import { publicKey, session } from "./src/config.js";
 import { generateNonce, generateTransactionId } from "./src/utils.js";
 import logUpdate from "log-update";
 
-const workc = "000";
+const workc = "0000";
 console.info(`EOS session: ${session.actor}@${session.permission} [${publicKey}]`)
 console.info(`The current mining difficulty is ${workc}`);
 console.info(`Expected to take 1-2 minutes to calculate...`);

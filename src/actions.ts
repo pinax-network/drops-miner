@@ -16,5 +16,5 @@ export function transfer(memo: string): AnyAction {
 }
 
 export function generateMemo(block: number, nonce: string|number) {
-    return `{"p":"drops","op":"mint","tick":"seeds","amt":"10000","block":"${block}","nonce":"${nonce}"}`
+    return `{"p":"drops-pow","op":"mint","tick":"seed","block":"${block}","nonce":"${nonce}"}`
 }
