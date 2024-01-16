@@ -1,0 +1,2 @@
+# drops-miner
+Drops Miner
