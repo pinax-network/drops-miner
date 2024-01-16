@@ -4,7 +4,7 @@ import { publicKey, session } from "./src/config.js";
 import { generateNonce, generateTransactionId } from "./src/utils.js";
 import logUpdate from "log-update";
 
-const workc = "0000";
+const workc = "000";
 console.info(`EOS session: ${session.actor}@${session.permission} [${publicKey}]`)
 console.info(`The current mining difficulty is ${workc}`);
 console.info(`Expected to take 1-2 minutes to calculate...`);
@@ -20,7 +20,12 @@ let count = 0;
 while (true) {
     const nonce = generateNonce();
     const memo = generateMemo(info.head_block_num.toNumber(), nonce);
-    const predictedTransactionHash = await generateTransactionId(memo);
+    const action = transfer(memo);
+
+    // compute transaction hash
+    const {resolved} = await session.transact({action}, {broadcast: false});
+    if ( !resolved ) throw new Error("No resolved transaction");
+    const predictedTransactionHash = await generateTransactionId(resolved);
 
     // logging
     const now = Date.now();
@@ -31,7 +36,8 @@ while (true) {
     }
 
     if (predictedTransactionHash.startsWith(workc)) {
-        console.info(`🔨 mining hash: ${predictedTransactionHash}`);
+        const {response} = await session.transact({action}, {broadcast: true});
+        console.info(`🔨 mining hash: ${response?.transaction_id}`);
         console.info(`✅ mining success`);
         process.exit();
     }

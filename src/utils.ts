@@ -1,6 +1,4 @@
-import { AnyAction, PackedTransaction, Checksum256, Transaction, SigningRequest, Serializer } from "@wharfkit/session";
-import { session } from "./config.js";
-
+import { ResolvedSigningRequest } from "@wharfkit/session";
 
 let lastNonce = 0;
 let lastTimestamp = Date.now();
@@ -14,22 +12,8 @@ export function generateNonce() {
   return `${currentTimestamp}${lastNonce++}`;
 }
 
-export async function generateTransactionId(memo: string) {
+export async function generateTransactionId(resolved: ResolvedSigningRequest) {
   const hasher = new Bun.CryptoHasher("sha256");
-  hasher.update(memo);
+  hasher.update(resolved?.serializedTransaction);
   return hasher.digest("hex");
-  // // session.client.v1.chain.send_transaction2()
-  // const {resolved, signatures, transaction, response} = await session.transact({action}, {broadcast: true});
-  // // const transaction =
-  // if ( !resolved ) throw new Error("No transaction");
-  // if ( !transaction ) throw new Error("No transaction");
-  // // const signed = await session.signTransaction(transaction);
-  // console.log({response: response?.transaction_id})
-
-  // const hasher = new Bun.CryptoHasher("sha256");
-  // hasher.update(resolved.serializedTransaction.buffer);
-  // const tx = hasher.digest("hex");
-  // console.log({tx});
-  // const response = await session.client.v1.chain.send_transaction2(resolved.transaction)
-  // console.log({transaction_id: response.transaction_id});
 }

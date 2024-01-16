@@ -1,7 +1,7 @@
 import { AnyAction } from "@wharfkit/session"
 import { session } from "./config.js"
 
-export function transfer(block: number, nonce: string|number): AnyAction {
+export function transfer(memo: string): AnyAction {
     return {
         account: "eosio.token",
         name: "transfer",
@@ -10,7 +10,7 @@ export function transfer(block: number, nonce: string|number): AnyAction {
             from: session.actor,
             to: "eosio.null",
             quantity: "0.0001 EOS",
-            memo: generateMemo(block, nonce),
+            memo,
         }
     }
 }

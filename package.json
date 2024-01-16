@@ -3,8 +3,7 @@
   "name": "drops-miner",
   "type": "module",
   "scripts": {
-    "start": "bun index.ts",
-    "dev": "bun --watch index.ts"
+    "start": "bun --watch index.ts"
   },
   "dependencies": {
     "@wharfkit/session": "1.x",
