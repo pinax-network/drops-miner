@@ -11,7 +11,17 @@
     "log-update": "^6.0.0"
   },
   "devDependencies": {
-    "bun-types": "latest",
-    "typescript": "latest"
+    "bun-types": "1.0.22",
+    "typescript": "5.3.3"
+  },
+  "packageManager": "bun@1.4.3",
+  "engines": {
+    "bun": ">=1.4.3"
+  },
+  "devEngines": {
+    "packageManager": {
+      "name": "bun",
+      "onFail": "error"
+    }
   }
 }
